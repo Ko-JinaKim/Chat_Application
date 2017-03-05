@@ -29,7 +29,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:onClick="sendMessage"
-        android:text="SEND"
+        android:text="@string/send"
         app:layout_constraintLeft_toRightOf="@+id/input_message"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -70,7 +70,7 @@
                 android:layout_gravity="left"
                 android:layout_marginTop="@dimen/message_margin"
                 android:background="@drawable/cpu_message"
-                android:text="How are you"
+                android:text="@string/how_are_you"
                 android:textColor="@color/message_color" />
 
 

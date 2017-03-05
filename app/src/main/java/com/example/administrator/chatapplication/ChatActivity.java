@@ -1,5 +1,6 @@
 package com.example.administrator.chatapplication;
 
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -25,6 +27,13 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+
+        Locale locale = Locale.KOREAN; Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,null);
+
         mInputMessage = (EditText) findViewById(R.id.input_message);
         mSendMessage = (Button) findViewById(R.id.send_message);
         mMessageLog = (LinearLayout) findViewById(R.id.message_log);
@@ -32,12 +41,11 @@ public class ChatActivity extends AppCompatActivity {
         //mUserMessage = (TextView) findViewById(R.id.user_message);
 
 
-
-
     }
 
     public void sendMessage(View v) {
         String inputText = mInputMessage.getText().toString();
+        String lowerInputText = inputText.toLowerCase();
         String answer;
 
         TextView userMessage = new TextView(this);
@@ -57,34 +65,34 @@ public class ChatActivity extends AppCompatActivity {
 
         mMessageLog.addView(userMessage,0,userMessageLayout); //TextView를 View의 맨 위로 설정
         //mUserMessage.setText(inputText);
-        if (inputText.contains("hi")) {
-            answer = "Hello";
-        } else if (inputText.contains("tired")) {
-            answer = "Take a rest.";
-        } else if (inputText.contains("today is")) {
+        if (inputText.contains(getString(R.string.hello))) {
+            answer = getString(R.string.fine);
+        } else if (inputText.contains(getString(R.string.tire))) {
+            answer = getString(R.string.bless_you);
+        } else if (inputText.contains(getString(R.string.fortune))) {
             double random = Math.random() * 5.1d;
             if (random < 1d) {
-                answer = "too bad";
+                answer = getString(R.string.worst_luck);
             } else if (random < 2d) {
-                answer = "little bad";
+                answer = getString(R.string.bad_luck);
             } else if (random < 3d) {
-                answer = "not bad";
+                answer = getString(R.string.good_luck);
             } else if (random < 4d) {
-                answer = "lucky";
+                answer = getString(R.string.nice_luck);
             } else if (random < 5d) {
-                answer = "jackpot";
+                answer = getString(R.string.best_luck);
             } else {
-                answer = "perfact day";
+                answer = getString(R.string.amazing_best_luck);
             }
 
-        } else if (inputText.contains("time")) {
+        } else if (inputText.contains(getString(R.string.time))) {
             Calendar cal = Calendar.getInstance();
             int hour = cal.get(Calendar.HOUR);
             int minute = cal.get(Calendar.MINUTE);
             int second = cal.get(Calendar.SECOND);
-            answer = String.format("Current time is %1$d hour %2$d min %3$d sec", hour, minute, second);
+            answer = getString(R.string.time_format, hour, minute, second);
         } else {
-            answer = "you are right";
+            answer = getString(R.string.good);
         }
         //mInputMessage.setText("");
 
